@@ -35,11 +35,6 @@ El uso de Git y GitHub te permite usar el control de versiones. ¿Alguna vez has
 
 El uso de Git y GitHub permite trabajar en el mismo proyecto al mismo tiempo que los colaboradores. Muchos de los equipos que entreno que están aprendiendo R deciden cambiar a Git/GitHub después de colaborar usando Dropbox, Google Drive, OneDrive o similares. El problema con el que se encuentran es que solo una persona puede trabajar en un proyecto de RStudio compartido de esta manera. Git y GitHub tienen herramientas integradas que permiten el trabajo asíncrono simultáneo, un beneficio importante para aquellos que trabajan en equipo.
 
-
-```{r cars}
-summary(cars)
-```
-
 ## Instalar Git
 https://git-scm.com/downloads
 
