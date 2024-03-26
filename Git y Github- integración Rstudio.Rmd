@@ -1,0 +1,90 @@
+---
+title: "Git y Github con Rstudio"
+author: "CRB"
+date: "2024-03-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Partes clave tomadas de http://destio.us.es/calvo/asignaturas/ge_esco/tutorialusargitgithubrstudio/UsarGitGithubconRStudio.html
+
+El uso de Git y GitHub junto con RStudio tiene el poder de revolucionar la forma en que trabajas en R. Pero configurar todo puede ser un desafío. Únete a mí mientras recorro todo lo que necesitas hacer para usar Git y GitHub junto con RStudio.
+
+Pero primero, algunos antecedentes…
+
+¿Qué es Git? ¿Qué es GitHub?
+Recuerdo cuando estaba empezando a aprender R, Git y GitHub eran cosas de las que había oído hablar, pero que solo entendía vagamente. Tenía la sensación de que se trataba de colaboración y compartir código, pero más allá de eso…
+
+Entonces… ¿qué son Git y GitHub? En primer lugar, son dos cosas separadas:
+
+Git es un software de código abierto para el control de versiones. Utilizando Git, puedes hacer cosas como ver todas las versiones anteriores de código que has creado en un proyecto.
+
+GitHub es el servicio más popular (otros incluyen GitLab y BitBucket) para colaborar en código usando Git.
+
+Es posible usar Git sin usar GitHub, aunque la mayoría de la gente combina los dos. Poder tener un registro de todos los cambios que ha realizado en su código tanto localmente como en un sitio web remoto es poderoso.
+
+¿Por qué debería usar Git y GitHub?
+He visto tres motivaciones principales para que la gente adopte un flujo de trabajo de Git/GitHub:
+
+El uso de Git y GitHub sirve como copia de seguridad. Debido a que GitHub tiene una copia de todo el código que tiene localmente, si algo le pasara a su computadora, todavía tendría acceso a su código.
+
+El uso de Git y GitHub te permite usar el control de versiones. ¿Alguna vez has tenido documentos llamados report-final.pdf, report-final-v2.pdf y report-final-v3.pdf? Sí, sí, lo has hecho. En lugar de hacer copias de archivos por miedo a perder trabajo, el control de versiones le permite ver lo que hizo en el pasado, todo mientras mantiene versiones individuales de documentos.
+
+El uso de Git y GitHub permite trabajar en el mismo proyecto al mismo tiempo que los colaboradores. Muchos de los equipos que entreno que están aprendiendo R deciden cambiar a Git/GitHub después de colaborar usando Dropbox, Google Drive, OneDrive o similares. El problema con el que se encuentran es que solo una persona puede trabajar en un proyecto de RStudio compartido de esta manera. Git y GitHub tienen herramientas integradas que permiten el trabajo asíncrono simultáneo, un beneficio importante para aquellos que trabajan en equipo.
+
+
+```{r cars}
+summary(cars)
+```
+
+## Instalar Git
+https://git-scm.com/downloads
+
+## Crear cuenta y repositorio en Github
+https://github.com/
+
+## Configurar Git (Editar gitconfig file)
+
+En terminal de RStudio:
+
+```{r pressure, echo=FALSE}
+library(usethis)
+usethis::edit_git_config()
+# Modificar en el fichero ".gitconfig" los apartados: "name" y "email" 
+# y guardar el fichero
+```
+
+
+## Crear un token de acceso personal (PAT) en GitHub
+
+Una vez que se haya registrado, deberá habilitar RStudio para hablar con GitHub. El proceso para hacerlo ha cambiado recientemente (aquí es donde veo la mayor diferencia importante con Happy Git con R). La mejor manera de conectar RStudio y GitHub es usando su nombre de usuario y un token de acceso personal (PAT). Para generar un token de acceso personal, use la función create_github_token() de usethis. Esto lo llevará a la página correspondiente en el sitio web de GitHub, donde le dará un nombre a su token y lo copiará (¡no lo pierda porque nunca volverá a aparecer!).
+
+
+En la consola de RStudio:
+
+```{r}
+library(usethis)
+usethis::create_github_token()
+```
+
+Pulsar sobre el enlace que aparece en la salida en la consola.
+Abrirá una página web de Github en la que se tendrá que pulsar el botón “Generate token”.
+Copiar el token que aparece en Github (luego se utilizará en el siguiente paso).
+
+
+## Almacenar token de acceso personal para conectar RStudio y GitHub
+
+Ahora que ha creado un token de acceso personal, debemos almacenarlo para que RStudio pueda acceder a él y sepa conectarse a su cuenta de GitHub. La función gitcreds_set() del paquete gitcreds te ayudará aquí. Ingresará su nombre de usuario de GitHub y el token de acceso personal como contraseña (NO su contraseña de GitHub, como pensé inicialmente). Una vez que haya hecho todo esto, ¡habrá conectado RStudio a GitHub!
+
+En la consola de RStudio:
+
+```{r}
+library(gitcreds)
+gitcreds::gitcreds_set()
+# Ante la pregunta: "Enter password or token"
+# introducir el token copiado en el paso anterior
+```
+
